@@ -1,0 +1,74 @@
+/* Task item styling */
+.task-item {
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s ease;
+}
+
+.task-item:hover {
+    background-color: var(--slds-g-color-neutral-base-95, #f3f3f3);
+}
+
+/* Task subject styling */
+.task-subject {
+    margin-bottom: 0.25rem;
+}
+
+/* Completed task styling */
+.task-subject.true strong {
+    text-decoration: line-through;
+    color: var(--slds-g-color-neutral-base-50, #706e6b);
+}
+
+/* Priority badge styling */
+.priority-badge {
+    display: inline-block;
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.priority-badge[data-priority="High"] {
+    background-color: var(--slds-g-color-error-base-40, #ea001e);
+    color: var(--slds-g-color-neutral-base-100, #ffffff);
+}
+
+.priority-badge[data-priority="Normal"] {
+    background-color: var(--slds-g-color-brand-base-50, #0176d3);
+    color: var(--slds-g-color-neutral-base-100, #ffffff);
+}
+
+.priority-badge[data-priority="Low"] {
+    background-color: var(--slds-g-color-success-base-50, #2e844a);
+    color: var(--slds-g-color-neutral-base-100, #ffffff);
+}
+
+/* Empty state styling */
+.slds-text-align_center p {
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Responsive form adjustments */
+@media (max-width: 768px) {
+    .slds-col {
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Focus states for accessibility */
+.task-item:focus-within {
+    outline: 2px solid var(--slds-g-color-brand-base-50, #0176d3);
+    outline-offset: 2px;
+}
+
+/* Loading spinner positioning */
+lightning-spinner {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1;
+}

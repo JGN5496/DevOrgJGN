@@ -1,0 +1,140 @@
+<template>
+    <lightning-card title="Quick Task Manager" icon-name="standard:task">
+        <!-- Loading Spinner -->
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+        </template>
+        
+        <!-- New Task Form -->
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-form" role="form">
+                <div class="slds-grid slds-gutters slds-wrap">
+                    <!-- Subject Input -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12">
+                        <lightning-input
+                            label="Task Subject"
+                            placeholder="Enter task subject"
+                            value={newTaskSubject}
+                            data-field="subject"
+                            onchange={handleInputChange}
+                            required>
+                        </lightning-input>
+                    </div>
+                    
+                    <!-- Priority Picklist -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12">
+                        <lightning-combobox
+                            label="Priority"
+                            value={newTaskPriority}
+                            options={priorityOptions}
+                            data-field="priority"
+                            onchange={handleInputChange}>
+                        </lightning-combobox>
+                    </div>
+                    
+                    <!-- Status Picklist -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12">
+                        <lightning-combobox
+                            label="Status"
+                            value={newTaskStatus}
+                            options={statusOptions}
+                            data-field="status"
+                            onchange={handleInputChange}>
+                        </lightning-combobox>
+                    </div>
+                    
+                    <!-- Due Date Input -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12">
+                        <lightning-input
+                            type="date"
+                            label="Due Date"
+                            value={newTaskDueDate}
+                            data-field="dueDate"
+                            onchange={handleInputChange}>
+                        </lightning-input>
+                    </div>
+                </div>
+                
+                <!-- Create Button -->
+                <div class="slds-m-top_small">
+                    <lightning-button
+                        variant="brand"
+                        label="Create Task"
+                        title="Create new task"
+                        onclick={handleCreateTask}
+                        disabled={isLoading}
+                        class="slds-m-left_x-small">
+                    </lightning-button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Task List -->
+        <div class="slds-card__body slds-card__body_inner slds-m-top_medium">
+            <template if:true={hasTasks}>
+                <ul class="slds-has-dividers_around-space">
+                    <template for:each={tasks} for:item="task">
+                        <li key={task.Id} class="slds-item task-item">
+                            <div class="slds-grid slds-grid_vertical-align-center">
+                                <!-- Checkbox for completion -->
+                                <div class="slds-col slds-size_1-of-12">
+                                    <lightning-input
+                                        type="checkbox"
+                                        checked={task.IsClosed}
+                                        data-id={task.Id}
+                                        onchange={handleStatusToggle}
+                                        variant="label-hidden"
+                                        label="Complete task">
+                                    </lightning-input>
+                                </div>
+                                
+                                <!-- Task Details -->
+                                <div class="slds-col slds-size_9-of-12">
+                                    <div class={task.IsClosed}>
+                                        <strong>{task.Subject}</strong>
+                                    </div>
+                                    <div class="slds-text-body_small slds-text-color_weak">
+                                        <span class="priority-badge" data-priority={task.Priority}>
+                                            {task.Priority}
+                                        </span>
+                                        <span class="slds-m-left_small">Status: {task.Status}</span>
+                                        <template if:true={task.ActivityDate}>
+                                            <span class="slds-m-left_small">Due: {task.ActivityDate}</span>
+                                        </template>
+                                    </div>
+                                </div>
+                                
+                                <!-- Delete Button -->
+                                <div class="slds-col slds-size_2-of-12 slds-text-align_right">
+                                    <lightning-button-icon
+                                        icon-name="utility:delete"
+                                        alternative-text="Delete task"
+                                        title="Delete task"
+                                        data-id={task.Id}
+                                        onclick={handleDeleteTask}
+                                        variant="bare">
+                                    </lightning-button-icon>
+                                </div>
+                            </div>
+                        </li>
+                    </template>
+                </ul>
+            </template>
+            
+            <!-- Empty State -->
+            <template if:false={hasTasks}>
+                <div class="slds-text-align_center slds-m-vertical_large">
+                    <lightning-icon
+                        icon-name="utility:task"
+                        size="large"
+                        alternative-text="No tasks">
+                    </lightning-icon>
+                    <p class="slds-text-heading_small slds-m-top_small">No tasks yet</p>
+                    <p class="slds-text-body_small slds-text-color_weak">
+                        Create your first task using the form above
+                    </p>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>
