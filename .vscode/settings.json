@@ -4,5 +4,19 @@
     "**/bower_components": true,
     "**/.sf": true,
     "**/.sfdx": true
-  }
+  },
+  "files.exclude": {
+    "**/*.cls-meta.xml": true,       // Apex Classes
+    "**/*.trigger-meta.xml": true,   // Apex Triggers
+    "**/*.js-meta.xml": true,        // LWC JavaScript
+    "**/*.html-meta.xml": true,      // LWC HTML
+    "**/*.css-meta.xml": true,       // LWC CSS
+    "**/*.page-meta.xml": true,      // Visualforce Pages
+    "**/*.component-meta.xml": true, // Visualforce Components
+    "**/*.cmp-meta.xml": true,       // Aura Components
+    "**/*.app-meta.xml": true   ,     // Aura Apps
+    // "**/*.cs.meta": true,
+    // "**/.cs.meta": true,
+    // "**/.cs": true
+  },
 }
